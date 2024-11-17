@@ -8,6 +8,10 @@ asciidoctor:
   attributes:
     icons: font
     source-highlighter: rouge
+    imagesdir: /assets/images/posts
+
+keep_files:
+- assets/images/posts
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-author
 author:
