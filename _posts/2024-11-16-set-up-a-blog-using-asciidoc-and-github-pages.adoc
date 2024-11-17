@@ -116,8 +116,6 @@ return
 return Render jobs
 ----
 
-'''
-
 To achieve this, we need to make a couple of changes based on the https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#enabling-asciidoctor-diagram[Jekyll Asciidoctor documentation].
 
 . Add a project dependency:

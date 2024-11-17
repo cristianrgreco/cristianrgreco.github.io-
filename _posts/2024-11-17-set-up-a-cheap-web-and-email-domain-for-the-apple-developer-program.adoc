@@ -10,6 +10,24 @@ If you’re like me, you might have run your business for years without needing 
 
 I recommend registering your domain through Cloudflare, as they offer domains at near-cost pricing. The standout feature for me, though, is their email routing. This allows you to receive domain-based emails without paying for an email hosting service. You can set up forwarding rules to send emails from your domain to your personal inbox. For instance, if your domain is “coolbeans.com,” you can route emails sent to “info@coolbeans.com” directly to “me@gmail.com.” It’s perfect for receiving the verification code required for the developer program.
 
+'''
+
+[plantuml, format=svg]
+----
+hide footbox
+scale 1.25
+
+Participant Apple
+Participant CFER as "Cloudflare Email Route"
+Participant You
+
+Apple -> CFER: Send verification code to\ninfo@coolbeans.com
+CFER -> You: Forward verification code\nto me@gmail.com
+You -> Apple: Input verification code
+----
+
+'''
+
 To create a basic website, I used ChatGPT to generate a single HTML file with all scripts and styles inline, featuring placeholder content about my business. I then zipped up the file and uploaded it to Cloudflare.
 
 In the end, I’m only paying $5 a year for my domain—and that’s it. Not bad!
