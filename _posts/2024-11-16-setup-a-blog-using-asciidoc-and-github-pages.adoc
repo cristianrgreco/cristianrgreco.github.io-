@@ -1,5 +1,5 @@
 = Setup a blog using AsciiDoc and GitHub Pages
-:page-excerpt: Learn how to set up a blog using AsciiDoc and GitHub Pages with step-by-step instructions on repository setup, dependency management, and deploying dynamic content like diagrams.
+:page-excerpt: Set up a blog with AsciiDoc and GitHub Pages, featuring dynamic content and diagrams.
 :page-tags: [asciidoc, plantuml, blog]
 
 == Use the quickstart template
