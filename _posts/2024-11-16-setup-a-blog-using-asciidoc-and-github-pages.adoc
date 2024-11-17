@@ -1,0 +1,148 @@
+= Setup a blog using AsciiDoc and GitHub Pages
+:page-excerpt: This is the very first post of this blog!
+:page-tags: [asciidoc, blog]
+
+== Use the quickstart template
+
+Follow the instructions from https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#enabling-asciidoctor-diagram[this quickstart template] to get a repository set up, from which you can build and deploy AsciiDoc documents to GitHub pages. 
+
+I'd recommend you name your repository in the format `<YOUR_GITHUB_USERNAME>.github.io` as that'll produce a nice URL. Otherwise GitHub pages will deploy to that URL + the name of your repository. E.g if you name your repository `blog`, the URL will be `<YOUR_GITHUB_USERNAME>.github.io/blog`.
+
+Once complete, clone the project locally so we can make some changes and run it locally.
+
+[source,bash]
+----
+git clone https://<YOUR_GITHUB_USERNAME>.github.io.git
+----
+
+== Install template dependencies
+
+The template uses Jekyll for building the website. Let's install it.
+
+[NOTE]
+====
+If you are on MacOS and have not installed your own Ruby, then follow the steps below.
+====
+
+The version of Ruby that comes pre-installed on MacOS is an older version, which is used by the OS. We will install a Ruby version manager which will give us the ability to install and manage as many Ruby installations as we like:
+
+[source,bash]
+----
+brew install chruby ruby-install
+
+ruby-install ruby 3.3.5
+
+echo "source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh" \
+  >> ~/.zshrc
+echo "source $(brew --prefix)/opt/chruby/share/chruby/auto.sh" \
+  >> ~/.zshrc
+echo "chruby ruby-3.3.5" \
+  >> ~/.zshrc <1> 
+
+source ~/.zshrc
+----
+<1> Run `chruby` to see the actual version.
+
+Now that Ruby is installed, we can install the project dependencies. 
+
+Change directory into the project where the `Gemfile` is located and run the following:
+
+[source,bash]
+----
+gem install bundler
+
+bundle <1>
+----
+<1> Install project dependencies from the Gemfile.
+
+Let's have Jekyll build and serve the project with live reload enabled:
+
+[source,bash]
+----
+bundle exec jekyll serve --livereload
+----
+
+Your website should now be running at http://localhost:4000. If you make a change to any of the files and save, the website should automatically reload.
+
+== Add PlantUML support
+
+Jekyll is able to render PlantUML diagrams in AsciiDoc files. For example the following code:
+
+[source,plantuml]
+----
+autoactivate on
+
+Actor User
+Participant UI
+box Vercel
+Participant APIRoute as "API route"
+end box
+box LinkedIn #lightblue
+Participant LinkedInAPI as "LinkedIn API"
+end box
+
+User -> UI: Navigate to Jobs page
+UI -> APIRoute: Fetch jobs
+APIRoute -> LinkedInAPI: Get access token
+return Access token
+APIRoute -> LinkedInAPI: Fetch jobs
+return Jobs
+return
+return Render jobs
+----
+
+Will generate the following image:
+
+[plantuml, format=svg]
+----
+autoactivate on
+
+Actor User
+Participant UI
+box Vercel
+Participant APIRoute as "API route"
+end box
+box LinkedIn #lightblue
+Participant LinkedInAPI as "LinkedIn API"
+end box
+
+User -> UI: Navigate to Jobs page
+UI -> APIRoute: Fetch jobs
+APIRoute -> LinkedInAPI: Get access token
+return Access token
+APIRoute -> LinkedInAPI: Fetch jobs
+return Jobs
+return
+return Render jobs
+----
+
+'''
+
+To achieve this, we need to make a couple of changes based on the https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#enabling-asciidoctor-diagram[Jekyll Asciidoctor documentation].
+
+. Add a project dependency:
++
+[source,bash]
+----
+bundle add asciidoctor-diagram --group jekyll_plugins
+----
+
+. Update the `_config.yml` in the root of the project to specify how and where from to serve images:
++
+[source,yaml]
+----
+title: Jekyll AsciiDoc Quickstart
+
+keep_files:
+- images <1>
+
+asciidoctor:
+  # ...
+  attributes:
+    # ...
+    imagesdir: /images <2>
+----
+<1> Asciidoctor output will be automatically cleaned up by Jekyll, so we need to https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#preserving-generated-images[tell Jekyll to preserve them].
+<2> Specify a directory from which to serve the images.
+
+Restart the Jekyll server and you'll now see the PlantUML diagram rendered in the post.
