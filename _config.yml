@@ -15,12 +15,17 @@ keep_files:
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-author
 author:
-  avatar: /assets/images/avatar.png # FIXME Replace with your avatar.
-  bio: I are programmer. I make computer beep boop beep beep boop. # FIXME Replace with your bio.
-  github: # FIXME Add your GitHub username or remove this line.
-  linkedin: # FIXME Add your Linkedin username or remove this line.
-  location: Earth, Milky Way # FIXME Replace with your location or remove this line.
-  name: John Doe # FIXME Replace with your name.
+  avatar: /assets/images/avatar.png
+  bio: Software developer sharing insights, lessons, and growth from my journey
+  location: London, United Kingdom
+  name: Cristian Greco
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-x"
+      url: "https://x.com/cristianrgreco"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/cristianrgreco"
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#giscus-comments
 comments:
@@ -33,7 +38,7 @@ comments:
     theme: light
   provider: giscus
 
-copyright: John Doe # FIXME Replace with your name or anything that makes sense. This will appear in the blog footer.
+copyright: Cristian Greco
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#front-matter-defaults
 defaults:
@@ -49,7 +54,7 @@ defaults:
       share: true
       show_date: true
 
-description: John Doe's blog # FIXME Replace with your blog description. This is only used in the blog HTML meta tags.
+description: Follow my journey as a software developer, sharing insights, lessons, and discoveries from coding to career growth.
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#code-block-copy-button
 enable_copy_code_button: true
@@ -59,12 +64,15 @@ encoding: utf-8
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-footer
 footer:
   links:
+    - label: Twitter
+      icon: fab fa-fw fa-x
+      url: https://x.com/cristianrgreco
     - label: GitHub
       icon: fab fa-fw fa-github
-      url: https://github.com/ # FIXME Replace with a link pointing to your GitHub profile (e.g. https://github.com/gwenneg) or remove this item.
-    - label: Linkedin
-      icon: fab fa-fw fa-linkedin
-      url: https://www.linkedin.com/in/ # FIXME Replace with a link pointing to your Linkedin profile (e.g. https://www.linkedin.com/in/gwenneg) or remove this item.
+      url: https://github.com/cristianrgreco
+    # - label: Linkedin
+    #   icon: fab fa-fw fa-linkedin
+    #   url: https://www.linkedin.com/in/cristianrgreco
 
 locale: en-US
 
@@ -74,7 +82,7 @@ minimal_mistakes_skin: default
 remote_theme: mmistakes/minimal-mistakes@4.26.2
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-repository
-repository: # FIXME Add your GitHub repository full name (e.g. gwenneg/blog-jekyll-asciidoc-template).
+repository: https://github.com/cristianrgreco/cristianrgreco.github.io
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-search
 search: true
@@ -82,7 +90,7 @@ search: true
 show_excerpts: true
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-subtitle
-subtitle: The newest blog ever. # FIXME Replace with your blog subtitle (optional).
+# subtitle: Debugging my path
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#archive-settings
 tag_archive:
@@ -90,6 +98,6 @@ tag_archive:
   path: /tags/
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-title
-title: John Doe's blog # FIXME Replace with your blog title.
+title: Runtime Reflections
 
-url: # FIXME Add your blog URL (e.g. https://gwenneg.github.io).
+url: https://cristianrgreco.github.io
