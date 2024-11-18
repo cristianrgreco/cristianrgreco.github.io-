@@ -74,7 +74,7 @@ footer:
     #   icon: fab fa-fw fa-linkedin
     #   url: https://www.linkedin.com/in/cristianrgreco
 
-locale: en-US
+locale: en-GB
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#skin
 minimal_mistakes_skin: default

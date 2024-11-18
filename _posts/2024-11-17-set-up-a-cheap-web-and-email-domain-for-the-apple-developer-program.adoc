@@ -15,7 +15,6 @@ I recommend registering your domain through Cloudflare, as they offer domains at
 [plantuml, format=svg]
 ----
 hide footbox
-scale 1.25
 
 Participant Apple
 Participant CFER as "Cloudflare Email Route"
