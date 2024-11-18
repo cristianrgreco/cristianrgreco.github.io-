@@ -2,17 +2,17 @@
 :page-excerpt: A fast, intuitive log viewer built with Wails. Features include code cleanup, filters, split-screen, and lightning-fast processing.
 :page-tags: [wails, react, go]
 
-I don't know about you, but I know I'm having a bad day when I'm copying and pasting 1000s of lines of log output into TextEdit and trying to make sense of it. It's even worse when it's late in the day and dark mode is on, and the characters start to burn into your eyes.
+I don't know about you, but I know I'm having a bad day when I'm copying and pasting 1000s of lines of log output into TextEdit and trying to make sense of it. It's even worse when it's late in the day and the characters start to burn into your eyes.
 
-Stare at that for 5 minutes, I dare you.
+Stare at this for 5 minutes, I dare you.
 
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/textedit.png[]
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/textedit.png[Logs in TextEdit]
 
 I spent a whole 2 minutes looking for something where I could just dump log files and have them presented back to me in some structured way. Gold medals if I could filter the output.
 
 This was the closest thing I could find. Not exactly what I had in mind 🎵
 
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/app-store-screenshot.png[]
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/app-store-screenshot.png[Basic log viewer app from Mac App Store]
 
 '''
 
@@ -24,7 +24,7 @@ Thing is, for most of my career I've worked on backend systems and websites. I t
 
 A quick search and my first hit was React Native. How exciting! I've done a tonne of React so this is right up my alley. 
 
-Let me quickly just run `npx create-expo-app@latest` like the docs say and... and... wow that actually took 20 minutes.
+Let me quickly just run `npx create-expo-app@latest` like the docs say and... and... wow that _actually_ took 20 minutes.
 
 OK, everything's installed, my 750mb empty repo and I are ready to go. The docs say that starting everything off is as simple as `npx expo start`. Wow, this sure is easy! ...
 
@@ -114,14 +114,14 @@ wails build
 Take a look at my baby:
 
 .Single file open. Note how the colorscheme 😺 draws your eyes to the things of importance. You can change the viewing options to whatever suits you. I find that a lot of logs have ANSI codes from console colour output, but they're horrendous to see. They're automatically removed! Being able to filter logs by text inclusive or exclusive is super useful for filtering out noise.
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/one-file-open.png[]
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/one-file-open.png[Single file open]
 
 '''
 
 .Split screen with scroll lock. Note how the number of warnings/errors for each side are in the footer, so you can quickly see if there was a difference between the logs.
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/split-screen.png[]
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/split-screen.png[Two files open in split screen]
 
 '''
 
 .Paste logs, browse and open, or drag and drop as many files as you like. The Go backend is super fast and can process 10,000s lines in microseconds.
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/initial.png[]
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/initial.png[Initial page of the app]
