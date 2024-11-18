@@ -1,5 +1,5 @@
 =	Making a Native Log Viewer App Using Wails
-:page-excerpt: A fast, intuitive log viewer built with Wails. Features include code cleanup, filters, split-screen, and lightning-fast processing
+:page-excerpt: A fast, intuitive log viewer built with Wails. Features include code cleanup, filters, split-screen, and lightning-fast processing.
 :page-tags: [wails, react, go]
 
 I don't know about you, but I know I'm having a bad day when I'm copying and pasting 1000s of lines of log output into TextEdit and trying to make sense of it. It's even worse when it's late in the day and dark mode is on, and the characters start to burn into your eyes.
