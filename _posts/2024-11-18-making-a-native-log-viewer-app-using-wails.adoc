@@ -1,0 +1,120 @@
+=	Making a Native Log Viewer App Using Wails
+:page-excerpt: TODO
+:page-tags: [wails, react, go]
+
+I don't know about you, but I know I'm having a bad day when I'm copying and pasting 1000s of lines of log output into TextEdit and trying to make sense of it. It's even worse when it's late in the day and dark mode is on, and the characters start to burn into your eyes.
+
+Stare at that for 5 minutes, I dare you.
+
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/textedit.png[]
+
+I spent a whole 2 minutes looking for something where I could just dump log files and have them presented back to me in some structured way. Gold medals if I could filter the output.
+
+This was the closest thing I could find. Not exactly what I had in mind 🎵
+
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/app-store-screenshot.png[]
+
+'''
+
+Finally, an opportunity to embark on a new project! 
+
+Thing is, for most of my career I've worked on backend systems and websites. I think I did some Android stuff at some point but I've mostly blocked that out of memory.
+
+== React Native
+
+A quick search and my first hit was React Native. How exciting! I've done a tonne of React so this is right up my alley. 
+
+Let me quickly just run `npx create-expo-app@latest` like the docs say and... and... wow that actually took 20 minutes. Bu.. but I have gigabit ethernet and an M1 Max! Whatever..
+
+OK, everything's installed, my 750MB empty repo and I are ready to go. The docs say that starting everything off is as simple as `npx expo start`. Wow, this sure is easy!
+
+[source]
+----
+❌  /Users/[REDACTED]/Library/Developer/Xcode/DerivedData/Oreille-bxxuvxrzbbojtictzbxfgyypfvxf/Build/Intermediates.noindex/ArchiveIntermediates/Oreille/BuildProductsPath/Release-iphoneos/RCT-Folly/folly.framework/Headers/folly/Optional.h:667:10: 'folly/experimental/coro/Coroutine.h' file not found
+#include <folly/experimental/coro/Coroutine.h>
+                                                           ^
+❌  /Users/[REDACTED]/Library/Developer/Xcode/DerivedData/Oreille-bxxuvxrzbbojtictzbxfgyypfvxf/Build/Intermediates.noindex/ArchiveIntermediates/Oreille/BuildProductsPath/Release-iphoneos/RCT-Folly/folly.framework/Headers/folly/Optional.h:667:10: 'folly/experimental/coro/Coroutine.h' file not found
+#include <folly/experimental/coro/Coroutine.h>
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+❌  /Users/[REDACTED]/Library/Developer/Xcode/DerivedData/Oreille-bxxuvxrzbbojtictzbxfgyypfvxf/Build/Intermediates.noindex/ArchiveIntermediates/Oreille/BuildProductsPath/Release-iphoneos/React-RCTAppDelegate/React_RCTAppDelegate.framework/Headers/RCTAppDelegate.h:8:9: could not build module 'React'
+#import <React/RCTBridgeDelegate.h>
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+❌  /Users/[REDACTED]/Library/Developer/Xcode/DerivedData/Oreille-bxxuvxrzbbojtictzbxfgyypfvxf/Build/Intermediates.noindex/ArchiveIntermediates/Oreille/BuildProductsPath/Release-iphoneos/react-native-branch/RNBranch.framework/Headers/RNBranch.h:2:9: could not build module 'React'
+#import <React/RCTBridgeModule.h>
+ ~~~~~~~^
+ 
+ The following build commands failed:
+	CompileC /Users/[REDACTED]/Library/Developer/Xcode/DerivedData/Oreille-bxxuvxrzbbojtictzbxfgyypfvxf/Build/Intermediates.noindex/ArchiveIntermediates/Oreille/IntermediateBuildFilesPath/Oreille.build/Release-iphoneos/Oreille.build/Objects-normal/arm64/AppDelegate.o /Users/[REDACTED]/git/ios/Oreille/AppDelegate.mm normal arm64 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'Oreille' from project 'Oreille')
+(1 failure)
+----
+
+WTF is that? 
+
+Bah, it doesn't matter. To get an error like that when having run the 2nd command from the most professional looking README I've ever seen, well I must be one of 1000s of people to encounter it. I'll just search their repository for the issue.
+
+[source]
+----
+GitHub issue OPEN. Opened 2 weeks ago.
+----
+
+Do more cruel words exist? If you ask ChatGPT to rewrite that in 2 words it'll say: "You're f****d".
+
+What the hell. This thing was meant to just "work". I've got people suggesting to recursively chmod my cocoapod Podfile. Are they crazy? 
+
+Spoilt by consumer choice, I decided I didn't want to go down the path of figuring out what a `pbxproj` is, or how far right I have to scroll to read the entire error message, and just try something else.
+
+== Wails
+
+An opportunity to learn Go! Finally a language with a cool logo.
+
+https://wails.io/[Wails] lets you write your backend in Go, which is blazingly fast! And let's you write your frontend in JS using any framework you like, which development-wise at least is also blazingly fast!
+
+I would bore you with the details, but everything kinda just worked. You can https://wails.io/docs/gettingstarted/installation/[install Wails] with Go:
+
+[source,bash]
+----
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+----
+
+To initialise your project:
+
+[source,bash]
+----
+wails init -n log-viewer -t react
+----
+
+To work on your project, with live-reload:
+
+[source,bash]
+----
+wails dev
+----
+
+[NOTE]
+====
+You can right click the app window and open the inspector when in dev mode. Great for figuring out styles and seeing console errors.
+====
+
+And when you're done building it is as simple as:
+
+[source,bash]
+----
+wails build
+----
+
+== Log Viewer App
+
+Have a look at my baby:
+
+.Single file open. Note how the colorscheme 😺 draws your eyes to the things of importance. You can change the viewing options to whatever suits you. I find that a lot of logs have ANSI codes from console colour output, but they're horrendous to see. They're automatically removed! Being able to filter logs by text inclusive or exclusive is super useful for filtering out noise.
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/one-file-open.png[]
+
+'''
+
+.Split screen with scroll lock. Note how the number of warnings/errors for each side are in the footer, so you can quickly see if there was a difference between the logs.
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/split-screen.png[]
+
+'''
+
+.Paste logs, browse and open, or drag and drop as many files as you like. The Go backend is super fast and can process 10,000s lines in microseconds.
+image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/initial.png[]
