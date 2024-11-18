@@ -18,7 +18,7 @@ image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/app-store
 
 Finally, an opportunity to embark on a new project! 
 
-Thing is, for most of my career I've worked on backend systems and websites. I think I did some Android stuff at some point but I've mostly blocked that out of memory.
+Thing is, for most of my career I've worked on backend systems and websites. I think I did some Android stuff at some point, but everytime I try to remember I black out and 5 minutes later find myself on the sofa screaming and crying.
 
 == React Native
 
