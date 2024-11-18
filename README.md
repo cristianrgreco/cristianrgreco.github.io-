@@ -1,4 +1,5 @@
-# Blogging on GitHub Pages with minimal effort
+# cristianrgreco.github.io
 
-Thinking about starting a blog but worried it’s too time-consuming?
-Learn in [this blog post](https://gwenneg.com/2024/08/17/blogging-with-minimal-effort.html) how to launch a fully functional blog on GitHub Pages and post with minimal effort.
+- [ ] Add GA
+
+This repo was bootstrapped from https://gwenneg.com/2024/08/17/blogging-with-minimal-effort.html, which provides an AsciiDoc template using the Minimal mistakes theme.
