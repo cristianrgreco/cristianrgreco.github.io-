@@ -16,7 +16,7 @@ keep_files:
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#site-author
 author:
   avatar: /assets/images/avatar.png
-  bio: Software developer sharing insights, lessons, and growth from my journey
+  bio: Software developer sharing insights, lessons, and growth
   location: London, UK
   name: Cristian Greco
   links:
