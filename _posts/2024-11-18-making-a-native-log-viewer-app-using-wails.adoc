@@ -59,7 +59,7 @@ GitHub issue OPEN. Opened 2 weeks ago.
 
 Do more cruel words exist? If you ask ChatGPT to rewrite that in 2 words it'll say: "You're f****d".
 
-What the hell. This thing was meant to just "work". I've got people suggesting to recursively chmod my cocoapod Podfile. Are they crazy? 
+What the hell. I'm out of my depth before the hello world. I've got people suggesting to recursively chmod my cocoapod Podfile. Are they crazy? 
 
 Spoilt by consumer choice, I decided I didn't want to go down the path of figuring out what a `pbxproj` is, or how far right I have to scroll to read the entire error message, and just try something else instead.
 
