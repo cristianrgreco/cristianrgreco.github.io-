@@ -125,7 +125,7 @@ spec:
       interval: 12h
 ----
 <1> Flux will check this Helm repository every 24 hours for new versions.
-<2> If Flux detects a new version, e.g. `61.1`, it will automatically update the HelmRelease to use that version. This is so powerful. You simply define __what__ you want in your cluster, and Flux will make it so. By the end of this series we'll have several apps deployed, all of which will be being kept automatically up to date, with absolutely no effort on our side.
+<2> If Flux detects a new version, e.g. `61.1`, it will automatically update the Helm release to use that version. This is so powerful. You simply define __what__ you want in your cluster, and Flux will make it so. By the end of this series we'll have several apps deployed, all of which will be being kept automatically up to date, with absolutely no effort on our side.
 
 Let's see how this new process has solved the problems above:
 
