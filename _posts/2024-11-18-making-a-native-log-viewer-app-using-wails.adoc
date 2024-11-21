@@ -6,7 +6,7 @@ I don't know about you, but I know I'm having a bad day when I'm copying and pas
 
 Stare at this for 5 minutes, I dare you.
 
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/textedit.png[Logs in TextEdit]
+image::/assets/images/posts/2024-11-18/textedit.png[Logs in TextEdit]
 
 I spent a whole 2 minutes looking for something where I could just dump log files and have them presented back to me in some structured way. Gold medals if I could filter the output.
 
