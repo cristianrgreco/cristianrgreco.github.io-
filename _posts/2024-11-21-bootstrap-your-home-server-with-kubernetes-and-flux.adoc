@@ -103,7 +103,7 @@ You will be prompted for your GitHub access token when running the command. Past
 
 A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see the system pods. Run `microk8s status` to get some cluster information.
 
-Flux will have created a repository in your GitHub account. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the host you can run `flux events` to see what Flux is up to.
+Flux will have created a repository in your GitHub account. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the server you can run `flux events` to see what Flux is up to.
 
 We've also installed some other goodies that will make interacting with and deploying apps to the cluster easier:
 
@@ -146,7 +146,7 @@ drwxrwxr-x 3  999 gpio 4096 Nov 21 11:56 pihole-pihole-pvc-3d1b2abd-d697-4797-ac
 
 We're now ready to start deploying apps to our cluster.
 
-Stay tuned for the next post where we'll deploy Prometheus, Grafana and Loki, with custom alerts that will email us when our host CPU/memory/disk utilisation, and even temperature, is too high. We'll end up with something like:
+Stay tuned for the next post where we'll deploy Prometheus, Grafana and Loki, with custom alerts that will email us when our server CPU/memory/disk utilisation, and even temperature, is too high. We'll end up with something like:
 
 .Kubernetes cluster dashboard.
 image::/assets/images/posts/2024-11-21/cluster.png[Cluster dashboard]
