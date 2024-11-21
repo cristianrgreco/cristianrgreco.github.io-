@@ -51,7 +51,7 @@ git clone https://github.com/cristianrgreco/home-server-ansible-setup.git
 I'd highly recommend reading https://github.com/cristianrgreco/home-server-ansible-setup[the code]. Ansible is simple yet powerful, and useful for automating tasks, both personally and professionally. You could for example imagine creating an Ansible project which sets up your laptop for how you like to work.
 ====
 
-Let's make some changes to tailor the set up to our needs.
+Let's make some changes to tailor the set-up to our needs:
 
 .`.inventory.yml`:
 [source,yaml]
