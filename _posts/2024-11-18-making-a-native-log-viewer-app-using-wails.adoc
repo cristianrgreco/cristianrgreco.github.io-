@@ -65,7 +65,7 @@ Spoilt by consumer choice, I decided I didn't want to go down the path of figuri
 
 An opportunity to learn Go! Finally a language with a cool logo.
 
-https://wails.io/[Wails] lets you write your backend in Go, which is blazingly fast! And let's you write your frontend in JS using any framework you like, which development-wise at least is also blazingly fast!
+https://wails.io/[Wails] lets you write your backend in Go, which is blazingly fast! And lets you write your frontend in JS, which is... Let's move on.
 
 I would bore you with the details, but everything kinda just worked. You can https://wails.io/docs/gettingstarted/installation/[install Wails] with Go:
 
