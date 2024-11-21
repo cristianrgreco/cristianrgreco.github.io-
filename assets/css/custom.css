@@ -85,3 +85,9 @@ code {
     color: #5389D0;
     font-size: 1em !important;
 }
+.imageblock {
+    margin: 0 0 1.3em
+}
+.imageblock > .title {
+    margin-top: 0.5em;
+}

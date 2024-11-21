@@ -2,12 +2,9 @@
 :page-excerpt: Install and configure Kubernetes on your home server using MicroK8s and Ansible, and set up Flux to manage app deployments and cluster configurations.
 :page-tags: [kubernetes, ansible, flux]
 
-This post will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. This is a great way to get hands-on experience with Kubernetes and CI/CD best practices like GitOps.
+This post is the first in a series which will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. By the end of the series we'll have installed a Minecraft server and https://pi-hole.net/[PiHole]; Prometheus, Grafana and Loki for observability, and alerting in place to notify us if something is going wrong.
 
-[NOTE]
-====
-We will cover deployments via Flux such as Prometheus/Grafana/Loki for observability, MetalLB for load balancing, and installing apps like Minecraft server and PiHole, in future posts.
-====
+This is a great way to get hands-on experience with Kubernetes, DevOps, and CI/CD best practices like GitOps.
 
 == Pre-requisites
 
@@ -56,7 +53,7 @@ I'd highly recommend reading https://github.com/cristianrgreco/home-server-ansib
 
 Let's make some changes to tailor the set up to our needs.
 
-.inventory.yml:
+.`.inventory.yml`:
 [source,yaml]
 ----
 all:
@@ -67,7 +64,7 @@ all:
 <1> Give your server a name.
 <2> Change the IP address to the IP of your server.
 
-.playbook.yml
+.`.playbook.yml`
 [source,yaml]
 ----
 - name: home-server
@@ -106,7 +103,7 @@ You will be prompted for your GitHub access token when running the command. Past
 
 A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see the system pods. Run `microk8s status` to get some cluster information.
 
-Flux will have created a GitHub repository in your account. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the host you can run `flux events` to see what Flux is up to.
+Flux will have created a repository in your GitHub account. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the host you can run `flux events` to see what Flux is up to.
 
 We've also installed some other goodies that will make interacting with and deploying apps to the cluster easier:
 
@@ -151,28 +148,16 @@ We're now ready to start deploying apps to our cluster.
 
 Stay tuned for the next post where we'll deploy Prometheus, Grafana and Loki, with custom alerts that will email us when our host CPU/memory/disk utilisation, and even temperature, is too high. We'll end up with something like:
 
-Cluster dashboard:
-
+.Kubernetes cluster dashboard.
 image::/assets/images/posts/2024-11-21/cluster.png[Cluster dashboard]
 
-'''
-
-Node dashboard:
-
+.Node dashboard.
 image::/assets/images/posts/2024-11-21/node.png[Node dashboard]
 
-'''
-
-Loki:
-
+.Loki.
 image::/assets/images/posts/2024-11-21/loki.png[Loki]
 
-'''
-
-Custom alerts:
-
+.Custom alerts.
 image::/assets/images/posts/2024-11-21/alerts.png[Custom alerts]
-
-'''
 
 Now that's some great observability for your home server!
