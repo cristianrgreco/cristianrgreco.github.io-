@@ -4,7 +4,7 @@
 
 == Use the Quickstart Template
 
-Follow the instructions from https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#enabling-asciidoctor-diagram[this quickstart template] to get a repository set up, from which you can build and deploy AsciiDoc documents to GitHub pages. 
+Follow the instructions from https://github.com/asciidoctor/jekyll-asciidoc-quickstart[this quickstart template] to get a repository set up, from which you can build and deploy AsciiDoc documents to GitHub pages.
 
 I'd recommend you name your repository in the format `<YOUR_GITHUB_USERNAME>.github.io` as that'll produce a nice URL. Otherwise GitHub pages will deploy to that URL + the name of your repository. E.g if you name your repository `blog`, the URL will be `<YOUR_GITHUB_USERNAME>.github.io/blog`.
 

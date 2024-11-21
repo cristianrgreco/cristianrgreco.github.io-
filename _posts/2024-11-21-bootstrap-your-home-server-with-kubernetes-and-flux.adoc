@@ -1,6 +1,6 @@
 = Bootstrap Your Home Server with Kubernetes and Flux
 :page-excerpt: Install and configure Kubernetes on your home server using MicroK8s and Ansible, and set up Flux to manage app deployments and cluster configurations.
-:page-tags: [kubernetes, ansible, flux]
+:page-tags: [kubernetes, ansible, flux, gitops]
 
 This post is the first in a series which will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. By the end of the series we'll have installed a Minecraft server and https://pi-hole.net/[PiHole]; Prometheus, Grafana and Loki for observability, and alerting in place to notify us if something is going wrong.
 

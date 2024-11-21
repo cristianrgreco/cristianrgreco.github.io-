@@ -1,0 +1,58 @@
+= Flux and GitOps: What, Why and How
+:page-excerpt: TODO
+:page-tags: [flux, gitops]
+:page-published: false
+
+In the link:/2024/11/21/bootstrap-your-home-server-with-kubernetes-and-flux.html[previous post], we set up a Kubernetes cluster on our home server using Ansible. We also installed Flux to manage app deployments and cluster configurations. But we didn't discuss __why__ we're using Flux, what GitOps is, and how it all fits together.
+
+== The Problem(s)
+
+If you've worked in a DevOps environment (where the developers who write the code are also responsible for deploying it, supporting it, etc.), I'd bet money that your deployment process looks something like this:
+
+[plantuml,format=svg]
+----
+autoactivate on
+Actor Developer
+Participant "Git Repository" as Git
+Participant "CI/CD Pipeline" as Pipeline
+Participant "Container Registry" as Registry
+Participant "Kubernetes Cluster" as Cluster
+
+Developer -> Git: Push code
+return Pushed
+
+Git -> Pipeline: Trigger build via Webhook
+return Build successful
+
+Developer -> Pipeline: Trigger release
+Pipeline -> Registry: Build and push image
+return Image pushed
+Pipeline -> Cluster: Update and apply manifest/chart with new image
+return Resource updated
+return Release successful
+----
+
+Beautiful, almost nostalgic. But there are a few problems with it:
+
+. What if the cluster wasn't in the state you expected it to be in?
+.. It's probably happened to you. You're doing a routine deployment, but the pipeline fails because the pods didn't reach a ready state. You check the deployment manifest, turns out your favourite colleague was testing stuff and added `replicas: 0` but forgot to take it back out (again). Or worse, the namespace you're deploying to no longer exists!
++
+. Now that the pipeline has failed, what do you do?
+.. You had a fancy pipeline to abstract away and automate the whole deployment process, but now that you need to do more you're stuck. Are you going to run `kubectl` commands against the cluster to see what's going on? Or run `kubectl delete deployment/<app>` to start fresh, and then re-run the pipeline? Hopefully you're not in an incident call with 100 people watching your screen as you type `kubectl --help`. How __exactly__ do you rollback, what permissions do you need to do so, and then how do you __guarantee__ that the cluster is now in the state you expect it to be?
++
+. You've heard of SecOps and you wear the T-shirt with pride. You ignore your therapist when she says not to apply the Zero Trust Model to everyday life. But have you realised yet how insecure this process is?
+.. Not only does the CI/CD pipeline need write access to your cluster, but probably so does every developer on your team in case of debugging/rollback. This means any successful phish, or stolen laptop, could mean game over.
++
+. It's Friday evening and you've been called into an urgent meeting. "What is our DR?!" your manager shouts. Confused, you wonder if he clocked off early for a few drinks. "We probably see different doctors, boss".
+.. Your cluster has disappeared. Most likely it was on Azure. You raise a Platinum support ticket to get your money's worth but you know full well you're on your own. Now you're tasked with a rebuild. You'll need to duplicate/update all the CI/CD pipelines. Create new service connections. Copy over (hopefully) existing manifests and configurations. Re-deploy all your applications (who knows what versions were actually live, it's definitely not in the manifest. You find the following pipeline code and your impostor syndrome climaxes: `sed -ie "s/IM_THE_VERSION_REPLACE_ME_LOL/$actualVersionLol/g" deployment.yml
+kubectl apply -f deployment.yml`) How long will this all take? And let's not pretend you're not forgetting something.
+
+In summary then, it seems the defacto solution for deployments is to somehow get some state into Kubernetes, and then make continuous alterations to that state, either manually or through pipelines. This makes it very hard to know what is the current state of the cluster, how to get back to that state, and who has access to the cluster.
+
+== The Solution
+
+TODO
+
+== Next Steps
+
+In the next post we'll actually deploy Prometheus, Grafana and Loki to our cluster using Flux. Batteries included. We'll also be setting up our own alerting for when something goes wrong. https://x.com/cristianrgreco[Follow me on X to stay tuned!]
