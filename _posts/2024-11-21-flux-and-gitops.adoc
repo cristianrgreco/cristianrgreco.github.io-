@@ -46,7 +46,7 @@ Beautiful, almost nostalgic. But there are a few problems with it:
 . Now that the pipeline has failed and the cluster is in a failed state, what do you do?
 .. You had a fancy pipeline to abstract away and automate the whole deployment process, but now that you need to dive in you're stuck. Are you going to run `kubectl` commands against the cluster to see what's going on? Or run `kubectl delete deployment/<app>` to start fresh, and then re-run the pipeline? Hopefully you're not in an bridge call with 100 people watching your screen as you type `kubectl --help`. How __exactly__ do you rollback, what permissions do you need to do so, and then how do you __guarantee__ that the cluster is now in the state you expect it to be?
 +
-. You've heard of SecOps and you wear the T-shirt with pride. You ignore your therapist when she says not to apply the Zero Trust Model to everyday life. I think part of you knows how insecure this process it but you don't want to admit it.
+. You've heard of SecOps and you wear the T-shirt with pride. You ignore your therapist when she says not to apply the Zero Trust Model to everyday life. I think part of you knows how insecure this process it but don't want to admit it.
 .. Not only does the CI/CD pipeline need write access to your cluster, but probably so does every developer on your team, because __when__ the pipeline fails, the cluster will require manual intervention to troubleshoot and fix. This means any successful phishing attack, or even a lost/stolen laptop, could spell game over.
 +
 . It's Friday evening and you've been called into an urgent meeting. "What is our DR?!" your manager shouts. Confused, you wonder if he's been drinking. "We probably see different doctors, boss".
