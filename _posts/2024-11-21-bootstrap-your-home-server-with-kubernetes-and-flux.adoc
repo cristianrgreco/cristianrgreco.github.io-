@@ -2,13 +2,13 @@
 :page-excerpt: Install and configure Kubernetes on your home server using MicroK8s and Ansible, and set up Flux to manage app deployments and cluster configurations.
 :page-tags: [kubernetes, ansible, flux, gitops]
 
-This post is the first in a series which will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. By the end of the series we'll have installed a Minecraft server and https://pi-hole.net/[PiHole]; Prometheus, Grafana and Loki for observability, and alerting in place to notify us if something is going wrong.
+This post is the first in a series which will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. By the end of the series we'll have installed a Minecraft server and https://pi-hole.net/[PiHole]; Prometheus, Grafana and Loki for observability, and have alerting in place to notify us when something is going wrong.
 
 This is a great way to get hands-on experience with Kubernetes, DevOps, and CI/CD best practices like GitOps.
 
 == Pre-requisites
 
-There are 4 pre-requisites before we  run a single command to go from 0 to a fully functioning, Flux enabled Kubernetes cluster:
+There are 4 pre-requisites before we run a single command to go from 0 to a fully functioning, Flux-enabled Kubernetes cluster:
 
 . A GitHub personal access token (needed for Flux bootstrap).
 . A server running Ubuntu server >= 24.04.
@@ -48,7 +48,7 @@ git clone https://github.com/cristianrgreco/home-server-ansible-setup.git
 
 [TIP]
 ====
-I'd highly recommend reading https://github.com/cristianrgreco/home-server-ansible-setup[the code]. Ansible is simple yet powerful, and useful for automating tasks, both personally and professionally. You could for example imagine creating an Ansible project which sets up your laptop for how you like to work.
+I'd highly recommend reading https://github.com/cristianrgreco/home-server-ansible-setup[the code]. Ansible is simple yet powerful, and useful for automating tasks, both personally and professionally. You could for example imagine creating an Ansible project which sets up your machine for how you like to work.
 ====
 
 Let's make some changes to tailor the set-up to our needs:
