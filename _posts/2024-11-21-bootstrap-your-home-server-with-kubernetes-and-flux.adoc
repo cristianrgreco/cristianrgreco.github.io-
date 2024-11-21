@@ -128,7 +128,7 @@ spec:
       name: grafana-adminuser-creds
       namespace: observability
 ----
-. https://microk8s.io/docs/addon-hostpath-storage#:~:text=By%20default%2C%20the%20hostpath%20provisioner,%2Fcommon%2Fdefault%2Dstorage%20.[MicroK8s host storage path addon]. This will let Kubernetes provision volumes using host storage. This is what mine looks like after having installed a few apps:
+. https://microk8s.io/docs/addon-hostpath-storage#:~:text=By%20default%2C%20the%20hostpath%20provisioner,%2Fcommon%2Fdefault%2Dstorage%20.[MicroK8s host storage path addon]: lets Kubernetes provision volumes using host storage. This is what mine looks like after having installed a few apps:
 +
 [source,bash]
 ----
