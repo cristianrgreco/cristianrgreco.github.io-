@@ -1,0 +1,178 @@
+= Bootstrap your Home Server with Kubernetes and Flux
+:page-excerpt: Install and configure Kubernetes on your home server using MicroK8s and Ansible, and set up Flux to manage app deployments and cluster configurations.
+:page-tags: [kubernetes, ansible, flux]
+
+This post will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. This is a great way to get hands-on experience with Kubernetes and CI/CD best practices like GitOps.
+
+[NOTE]
+====
+We will cover deployments via Flux such as Prometheus/Grafana/Loki for observability, MetalLB for load balancing, and installing apps like Minecraft server and PiHole, in future posts.
+====
+
+== Pre-requisites
+
+There are 4 pre-requisites before we  run a single command to go from 0 to a fully functioning, Flux enabled Kubernetes cluster:
+
+. A GitHub personal access token (needed for Flux bootstrap).
+. A server running Ubuntu server >= 24.04.
+. SSH public key authentication set up between the server and your host.
+. Ansible installed on your local machine:
++
+.. Install `pipx`
++
+.MacOS:
+[source,bash]
+----
+brew install pipx
+----
++
+.Linux:
+[source,bash]
+----
+sudo apt install pipx
+----
++
+.. Install `ansible`
++
+[source,bash]
+----
+pipx install --include-deps ansible <1>
+----
+<1> Follow the output for instructions on how to update your `PATH` variable.
+
+== Running Ansible
+
+Clone the Ansible repository:
+
+[source,bash]
+----
+git clone https://github.com/cristianrgreco/home-server-ansible-setup.git
+----
+
+[TIP]
+====
+I'd highly recommend reading https://github.com/cristianrgreco/home-server-ansible-setup[the code]. Ansible is simple yet powerful, and useful for automating tasks, both personally and professionally. You could for example imagine creating an Ansible project which sets up your laptop for how you like to work.
+====
+
+Let's make some changes to tailor the set up to our needs.
+
+.inventory.yml:
+[source,yaml]
+----
+all:
+  hosts:
+    pi: <1>
+      ansible_host: 192.168.0.234 <2>
+----
+<1> Give your server a name.
+<2> Change the IP address to the IP of your server.
+
+.playbook.yml
+[source,yaml]
+----
+- name: home-server
+  hosts: pi <1>
+
+  vars:
+    cluster: production
+    github_user: cristianrgreco <2>
+    repository: home-server-flux-setup <3>
+
+  vars_prompt:
+    - name: github_token
+      prompt: Enter the GitHub token for Flux to bootstrap the cluster
+      private: yes
+
+  roles:
+    - microk8s
+    - kubeseal
+    - flux
+    - k9s
+----
+<1> This should match the server you defined in the `inventory.yml` above.
+<2> Change this to your GitHub username.
+<3> This is the repository Flux will use to store the cluster configuration.
+
+We're ready! Let's run the Ansible playbook:
+
+[source,bash]
+----
+cd home-server-ansible-setup
+ansible-playbook -i inventory.yml playbook.yml -u <user> <1>
+----
+<1> In my case the user is `pi`, as that's the user I created when setting up my Raspberry Pi.
+
+You will be prompted for your GitHub access token when running the command. Paste it and press `Enter`.
+
+A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see the system pods. Run `microk8s status` to get some cluster information.
+
+Flux will have created a GitHub repository in your account. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the host you can run `flux events` to see what Flux is up to.
+
+We've also installed some other goodies that will make interacting with and deploying apps to the cluster easier:
+
+. https://k9scli.io/[k9s]: a Terminal GUI to interact with your cluster. It looks like this:
++
+image::/assets/images/posts/2024-11-21/k9s.png[K9s]
+. https://github.com/bitnami-labs/sealed-secrets[Kubeseal]: lets you encrypt secrets needed by your Kubernetes cluster at rest, meaning we can store usernames/passwords in your GitHub repository without fear of them being exposed. For example:
++
+[source,yaml]
+----
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: grafana-adminuser-creds
+  namespace: observability
+spec:
+  encryptedData:
+    adminUser: AgAqVMtI4V44nIv/254IhQMsbNL4imM92ChTYmD/kqSllLUzvEdVmMXFv8jeUoYDTPLj2LUk0K2UMgnZM+86nXsGYibNvWPS64IpVlF7sNGRjD/shXWc8fdQq842Q8K32trNPpfqr/E2eVs/H3CwVdzGKXZKMkYhI98Jb+qPeXwQtp1MBEkR025G5OQxsol6SO7sVhtHQiVos4cfuBWZSOpydQ2YBXYF6HDkG25TTXj7DKj45wWWy0aOchVnkDmT4RfMCsuMaLzKIDtuNrHIBN268iOhbaqNHAxSOaKstOC9vrifTzBnJV6W3ujMAMQyWDXU+6R1rXS69c5cZ2EaZjM5NfdaxUjOXxqzhXQtT4NkgB2JH7Zn7vyrfIS17s0k/JhjbNB0jSD8PoNxAaRfGJz6YsuIV74tANsPFQnnff/WJ3NOHlr2JqvxmFZFgEaLZy1QLaOMrvyes73XlHuaThkHjFD9CGgEgnjQNjxSMHSJOmSxwlfwoeWqy6WCd1IB9Dk21s3Aiwtr06KG2taAZ6lm7uYZA7afS5yYYJPrv+tNwPHC6LrdtZR0HJgApVloLCx4i4ZtD86+hVPP9FTws7q628nJiYB1SNxUGijzMrfFkAa6klhLRQVRC3dVsYS25W490tT/0JeqqfxKwERPEerMjH3vXVXYWFVMMU5Q2Ek4djH3baG14Bttua+IxBgkh3RYoRcB4g==
+    adminPassword: AgA0Uai+Fw4uzf4MrGjj2J4WZvAu23wHa9n40s//615cyPPKoD9r2MYF5RPH0qTOzly03YuQ7PQDvmS922JdA0noK2Qyl6nvNUU5PtukG/uFRgjf4e0knjO1gHorcp/ODBNyO0VYBclBg/gjsUmFfUs/B+mKQ+4GMroVxW4qr7OQM9JgCoO0w5RdRl34o5t/15cNwi4NfdeSlxIW9tlzfzBv2EUEziOSrePcdHDv+wWlISUskG2/a8G0fkuDvL27TOJuGw6NGXPOjbg1ayTBhPxpnwZXgk+meFhHS/i8ioT/wvHd6rnwC91p2QkSCc6/ofTFgqWEA/wVyZqiXu3zS7leehYw1AEl5rea02WEbpy2EOIK7f5Q0WEvEZNvaBWvMfGjz33xVb6dXuRXfonmUiI3PLuFPBn4oT5y9oHEBPDCD+EzNWpcHv/mFISGOsq6IdQct8WD0TvllXm2uluCYiddyqeQdKAHipA7b6PneApkwRhfaNy9diWBoSxdqmCE1CmZUvEqCaKD2OoYfUJe9aASwZv2WRU9zHGfdUBCUYqb5VP9CvT90QTZj3Om+Phn3jdMCGH6XpHcMuCidroecEk5d9Ej5bGo5aexD4AY/viD9DP/ILFcQi1B3bw2PAebYrOZGJvf/2gvOzH2HcODtUlhWfkqI69ctbA3vVjP9XNYA7yxd0h604H1bUw0mRKTM+Q1kuOLEkIp9ZRQVftkLW52DKhkdDg3R6hT8w0+IEFLLpsnM4rYqOiE8aF/y7CVIdGnVw==
+  template:
+    metadata:
+      name: grafana-adminuser-creds
+      namespace: observability
+----
+. https://microk8s.io/docs/addon-hostpath-storage#:~:text=By%20default%2C%20the%20hostpath%20provisioner,%2Fcommon%2Fdefault%2Dstorage%20.[MicroK8s host storage path addon]. This will let Kubernetes provision volumes using host storage. This is what mine looks like after having installed a few apps:
++
+[source,bash]
+----
+pi@pi:~$ ls -l /var/snap/microk8s/common/default-storage/
+
+total 20
+drwxrwxrwx 8 root root 4096 Aug  1 17:22 minecraft-minecraft-minecraft-datadir-pvc-e6ece37d-4ac8-490b-bdc9-15dc00494f71
+drwxrwxrwx 6  472  472 4096 Nov 21 11:56 observability-kube-prometheus-stack-grafana-pvc-733435d4-3213-4066-a4a5-66515eba1868
+drwxrwxrwx 6  472  472 4096 Aug  4 18:44 observability-storage-kube-prometheus-stack-grafana-0-pvc-ef2e16e4-3c14-4f31-9835-f2fe8627f71a
+drwxrwxrwx 8 root root 4096 Aug  1 19:28 observability-storage-loki-0-pvc-16faaf73-69b0-45cd-b1f7-ec4eb90efea3
+drwxrwxr-x 3  999 gpio 4096 Nov 21 11:56 pihole-pihole-pvc-3d1b2abd-d697-4797-acd2-beaf513e84f5
+----
+
+== Next Steps
+
+We're now ready to start deploying apps to our cluster.
+
+Stay tuned for the next post where we'll deploy Prometheus, Grafana and Loki, with custom alerts that will email us when our host CPU/memory/disk utilisation, and even temperature, is too high. We'll end up with something like:
+
+Cluster dashboard:
+
+image::/assets/images/posts/2024-11-21/cluster.png[Cluster dashboard]
+
+'''
+
+Node dashboard:
+
+image::/assets/images/posts/2024-11-21/node.png[Node dashboard]
+
+'''
+
+Loki:
+
+image::/assets/images/posts/2024-11-21/loki.png[Loki]
+
+'''
+
+Custom alerts:
+
+image::/assets/images/posts/2024-11-21/alerts.png[Custom alerts]
+
+'''
+
+Now that's some great observability for your home server!

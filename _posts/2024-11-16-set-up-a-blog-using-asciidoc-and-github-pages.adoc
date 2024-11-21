@@ -1,8 +1,8 @@
 = Set Up a Blog Using AsciiDoc and GitHub Pages
 :page-excerpt: Set up a blog with AsciiDoc and GitHub Pages, featuring dynamic content and diagrams.
-:page-tags: [asciidoc, plantuml, blog]
+:page-tags: [asciidoc, plantuml]
 
-== Use the quickstart template
+== Use the Quickstart Template
 
 Follow the instructions from https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#enabling-asciidoctor-diagram[this quickstart template] to get a repository set up, from which you can build and deploy AsciiDoc documents to GitHub pages. 
 
@@ -15,7 +15,7 @@ Once complete, clone the project locally so we can make some changes and run it 
 git clone https://<YOUR_GITHUB_USERNAME>.github.io.git
 ----
 
-== Install template dependencies
+== Install Template Dependencies
 
 The template uses Jekyll for building the website. Let's install it.
 
@@ -64,7 +64,7 @@ bundle exec jekyll serve --livereload
 
 Your website should now be running at http://localhost:4000. If you make a change to any of the files and save, the website should automatically reload.
 
-== Add PlantUML support
+== Add PlantUML Support
 
 Jekyll is able to render PlantUML diagrams in AsciiDoc files. For example the following code:
 

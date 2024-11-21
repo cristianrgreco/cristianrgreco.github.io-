@@ -12,7 +12,7 @@ I spent a whole 2 minutes looking for something where I could just dump log file
 
 This was the closest thing I could find. Not exactly what I had in mind 🎵
 
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/app-store-screenshot.png[Basic log viewer app from Mac App Store]
+image::/assets/images/posts/2024-11-18/app-store-screenshot.png[Basic log viewer app from Mac App Store]
 
 '''
 
@@ -114,14 +114,14 @@ wails build
 Take a look at my baby:
 
 .Single file open. Note how the colorscheme 😺 draws your eyes to the things of importance. You can change the viewing options to whatever suits you. I find that a lot of logs have ANSI codes from console colour output, but they're horrendous to see. They're automatically removed! Being able to filter logs by text inclusive or exclusive is super useful for filtering out noise.
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/one-file-open.png[Single file open]
+image::/assets/images/posts/2024-11-18/one-file-open.png[Single file open]
 
 '''
 
 .Split screen with scroll lock. Note how the number of warnings/errors for each side are in the footer, so you can quickly see if there was a difference between the logs.
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/split-screen.png[Two files open in split screen]
+image::/assets/images/posts/2024-11-18/split-screen.png[Two files open in split screen]
 
 '''
 
 .Paste logs, browse and open, or drag and drop as many files as you like. The Go backend is super fast and can process 10,000s lines in microseconds.
-image::/assets/images/posts/making-a-native-log-viewer-app-using-wails/initial.png[Initial page of the app]
+image::/assets/images/posts/2024-11-18/initial.png[Initial page of the app]

@@ -1,6 +1,6 @@
 =	Set Up a Cheap Web and Email Domain for the Apple Developer Program
 :page-excerpt: Set up a web and email domain for the Apple Developer Program using Cloudflare, with no need for email hosting.
-:page-tags: [cloudflare, apple developer program]
+:page-tags: [cloudflare]
 
 The Apple Developer Program requires small businesses to have their own website and a domain-based email address. This means the domain should match your business name.
 
