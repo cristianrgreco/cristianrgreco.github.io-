@@ -12,8 +12,8 @@ There are 4 pre-requisites before we  run a single command to go from 0 to a ful
 
 . A GitHub personal access token (needed for Flux bootstrap).
 . A server running Ubuntu server >= 24.04.
-. SSH public key authentication set up between the server and your host.
-. Ansible installed on your host:
+. SSH public key authentication set up between the server and your local machine.
+. Ansible installed on your local machine:
 +
 .. Install `pipx`
 +
