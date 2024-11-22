@@ -37,7 +37,7 @@ pipx install --include-deps ansible <1>
 ----
 <1> Follow the output for instructions on how to update your `PATH` variable.
 
-== Running Ansible
+== Configure the Ansible Project
 
 Clone the Ansible repository:
 
@@ -89,6 +89,24 @@ all:
 <1> This should match the server you defined in the `inventory.yml` above.
 <2> Change this to your GitHub username.
 <3> This is the repository Flux will use to store the cluster configuration.
+
+.`roles/kubeseal/defaults/main.yml`:
+[source,yaml]
+----
+kubeseal_version: '0.27.1'
+kubeseal_arch: arm <1>
+----
+<1> Update the architecture to match your server.
+
+.`roles/k9s/defaults/main.yml`:
+[source,yaml]
+----
+k9s_version: '0.32.5'
+k9s_arch: arm64 <1>
+----
+<1> Update the architecture to match your server.
+
+== Running Ansible
 
 We're ready! Let's run the Ansible playbook:
 
