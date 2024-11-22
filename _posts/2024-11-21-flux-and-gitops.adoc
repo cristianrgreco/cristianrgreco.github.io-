@@ -138,6 +138,8 @@ Let's see how this new process has solved the problems above:
 . Reproducibility?
 .. The entire cluster state is in code in Git. You can install Flux on any other cluster and have it bootstrap from the Git repository to get back to the exact same state.
 
+There are other benefits as well, like developers not needing to learn new tools or Kubernetes intricacies. Instead, they use an interface they're already familiar with: Git.
+
 == Next Steps
 
 In the next post we'll deploy our observability stack to our cluster using Flux: Prometheus, Grafana and Loki. Batteries included. We'll also be setting up our own alerting for when something goes wrong. https://x.com/cristianrgreco[Follow me on X to get updated!]
