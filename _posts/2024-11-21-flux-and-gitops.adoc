@@ -93,7 +93,7 @@ Cluster -> Cluster: Reconcile changes
 return Changed reconciled
 ----
 
-The diagram above says that the step where the developer pushes code for the second time is optional. Indeed, depending on how you set up Flux, a deployment could be as easy as pushing a new image. For example:
+The diagram above says that the step where the developer pushes code for the second time is optional. Indeed, depending on how you set up Flux, a deployment could be as easy as pushing a new image. For example, let's say the following Flux resources have been created:
 
 [source,yaml]
 ----
