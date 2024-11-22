@@ -81,7 +81,7 @@ return Build successful
 
 ...Optional approval process...
 
-Developer -> CGit: Update manifest/chart and push
+Developer -> CGit: Push code
 note left of CGit: This step is actually optional
 return Pushed
 
@@ -93,7 +93,7 @@ Cluster -> Cluster: Reconcile changes
 return Changed reconciled
 ----
 
-The diagram above says that the step where the developer updates the manifest is optional. Indeed depending on how you set up Flux, a deployment could be as easy as pushing a new image. For example:
+The diagram above says that the step where the developer pushes code for the second time is optional. Indeed, depending on how you set up Flux, a deployment could be as easy as pushing a new image. For example:
 
 [source,yaml]
 ----
