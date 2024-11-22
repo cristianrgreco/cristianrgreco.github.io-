@@ -5,6 +5,11 @@
 
 In the link:/2024/11/21/bootstrap-your-home-server-with-kubernetes-and-flux.html[previous post], we set up a Kubernetes cluster on our home server using Ansible. We installed Flux to manage app deployments and cluster configurations. But we didn't discuss __why__ we're using Flux, what GitOps is, and how it  fits together.
 
+[NOTE]
+====
+In this series we're using Flux, but the same concepts and principals apply to other GitOps tools like https://argo-cd.readthedocs.io/en/stable/[ArgoCD].
+====
+
 == The Problem(s)
 
 If you've worked in a DevOps environment (where the developers who write the code are also responsible for deploying it, supporting it, etc.), I'd bet money that your deployment process looks something like this:
