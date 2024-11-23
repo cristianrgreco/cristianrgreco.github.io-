@@ -1,6 +1,6 @@
 = Flux and GitOps: What, Why and How
 :page-excerpt: Flux and GitOps simplify Kubernetes management by defining your cluster’s desired state in Git, ensuring consistency, security, and easy rollbacks.
-:page-tags: [flux, gitops]
+:page-tags: [kubernetes, flux, gitops]
 :page-published: true
 
 In the link:/2024/11/21/bootstrap-your-home-server-with-kubernetes-and-flux.html[previous post], we set up a Kubernetes cluster on our home server using Ansible. We installed Flux to manage app deployments and cluster configurations. But we didn't discuss __why__ we're using Flux, what GitOps is, and how it  fits together.
@@ -147,4 +147,4 @@ There are other benefits as well, like developers not needing to learn new tools
 
 == Next Steps
 
-In the next post we'll deploy our observability stack to our cluster using Flux: Prometheus, Grafana and Loki. Batteries included. We'll also be setting up our own alerting for when something goes wrong. https://x.com/cristianrgreco[Follow me on X to get updated!]
+In the next post we're going to install some components we need before we can start deploying apps to the cluster.

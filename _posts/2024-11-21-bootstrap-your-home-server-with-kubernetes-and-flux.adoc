@@ -2,15 +2,180 @@
 :page-excerpt: Install and configure Kubernetes on your home server using MicroK8s and Ansible, and set up Flux to manage app deployments and cluster configurations.
 :page-tags: [kubernetes, ansible, flux, gitops]
 
-This post is the first in a series which will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. By the end of the series we'll have installed a Minecraft server and https://pi-hole.net/[PiHole]; Prometheus, Grafana and Loki for observability, and have alerting in place to notify us when something is going wrong.
+This post is the first in a series which will show you how to install and configure Kubernetes using https://microk8s.io/[MicroK8s] on your home server using https://www.ansible.com/[Ansible]. We'll be using https://fluxcd.io/[Flux] for managing app deployments and cluster configuration. 
+
+By the end of the series we'll have installed a publicly accessible Minecraft server and https://pi-hole.net/[PiHole]. Prometheus, Grafana and Loki for observability; and have alerting in place to notify us when something is going wrong.
 
 This is a great way to get hands-on experience with Kubernetes, DevOps, and CI/CD best practices like GitOps.
 
-== Pre-requisites
+[TIP]
+====
+**No home server? No problem!** We'll include creating a VM on MacOS that we can use instead.
+====
 
-There are 4 pre-requisites before we run a single command to go from 0 to a fully functioning, Flux-enabled Kubernetes cluster:
+== (Optional) Creating a VM [[creating_a_vm]]
 
-. A GitHub personal access token (needed for Flux bootstrap).
+[NOTE]
+====
+If you already have a server, then <<pre_requisites,skip to the next section>>.
+====
+
+=== Provision the VM
+
+Let's download an OS for our VM. We'll use Ubuntu Server 24.04. If you're on an M-series Mac (Apple silicon), you can https://ubuntu.com/download/server/arm[download the ARM version here], else you can https://ubuntu.com/download/server[download the AMD version here].
+
+We'll use https://mac.getutm.app/[UTM] for creating a VM because it's straightforward and easy to use:
+
+[source, bash]
+----
+brew install utm
+----
+
+Launch UTM and you'll be presented with this window:
+
+.Click "Create a new Virtual Machine".
+image::/assets/images/posts/2024-11-22/1-create-new-vm.png[UTM app]
+
+.Click "Virtualize".
+image::/assets/images/posts/2024-11-22/2-virtualize.png[Create new VM dialog]
+
+.Click "Linux".
+image::/assets/images/posts/2024-11-22/3-linux.png[OS selection dialog]
+
+.Click "Browse" and select the ISO image you downloaded earlier. Click "Continue".
+image::/assets/images/posts/2024-11-22/4-boot-iso-image.png[Image selection dialog]
+
+Fast forward the next few prompts, we're happy with the defaults for "Hardware", "Storage", and "Shared Directory". You'll now be presented with a "Summary" page:
+
+.Click "Save".
+image::/assets/images/posts/2024-11-22/5-summary.png[VM creation summary]
+
+.Click the "Play" button.
+image::/assets/images/posts/2024-11-22/6-vm-created.png[VM ready to start]
+
+.Press "Enter" to install Ubuntu Server.
+image::/assets/images/posts/2024-11-22/7-install-ubuntu.png[VM running Ubuntu installation media]
+
+Proceed through the prompts: Select your language. You don't need to update the installer. Select your keyboard layout. Select "Ubuntu Server" as the base, there is no need to search for third-party drivers. The default network interface is fine as UTM creates a bridge network for the VM, meaning it'll use your host network. No proxy address is required. The default mirror address is fine. Select to use the entire disk.
+
+.Set the name, server name, username and password to whatever values you like. You'll need to remember the username and password as you'll need them to login later.
+image::/assets/images/posts/2024-11-22/8-user-creation.png[User account creation]
+
+Proceed through the prompts: Don't enable Ubuntu Pro. Don't install OpenSSH server (we'll install it later). Don't install any Snap packages. Click "Reboot now".
+
+[NOTE]
+====
+The VM may not reboot as expected as the ISO is still mounted (the VM thinks a Ubuntu installation disk is inserted and boots into that). Continue with the next steps.
+====
+
+.In the UTM app, clear the CD/DVD drive.
+image::/assets/images/posts/2024-11-22/9-eject-disk.png[Remove VM installation media]
+
+.Restart the VM. You can click the "Play" button in the VM menu bar.
+image::/assets/images/posts/2024-11-22/10-restart-vm.png[UTM VM console GUI]
+
+.You should now be presented with a login prompt. Enter the username and password you set earlier.
+image::/assets/images/posts/2024-11-22/11-vm-login.png[Ubuntu login prompt]
+
+=== Configure SSH
+
+At the moment we've been interacting with our VM via UTM's GUI console. The next step is to setup SSH so we can connect to the VM and manage it from our local machine. Ansible will also use this SSH connection to setup the VM.
+
+On the VM, install OpenSSH server, which will let us connect to it from our local machine:
+
+[source, bash]
+----
+sudo apt install -y openssh-server
+----
+
+Update the SSH daemon configuration to enable public key authentication:
+
+[source, bash]
+----
+sudo nano /etc/ssh/sshd_config
+----
+
+Uncomment the line:
+
+[source,diff]
+----
+- #PubkeyAuthentication yes
++ PubkeyAuthentication yes
+----
+
+Restart the SSH server to apply the changes:
+
+[source, bash]
+----
+sudo service ssh restart
+----
+
+Get the IP address of the VM:
+
+[source, bash]
+----
+ip address show <1>
+----
+<1> `ip a` for short.
+
+You should see output like:
+
+[source, bash]
+----
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute
+       valid_lft forever preferred_lft forever
+2: enp0s1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether ce:b5:22:32:e4:40 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.66.4/24 metric 100 brd 192.168.66.255 scope global dynamic enp0s1
+       valid_lft 84598sec preferred_lft 84598sec
+    inet6 fda1:ebce:1a87:3a65:ccb5:22ff:fe32:e440/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 2591917sec preferred_lft 604717sec
+    inet6 fe80::ccb5:22ff:fe32:e440/64 scope link
+       valid_lft forever preferred_lft forever
+----
+
+We can ignore the loopback interface (`lo`). We see for the `enp0s1` interface that the IP address is `192.168.66.4`. Make a note, we will use it later.
+
+Let's switch back to our local machine and generate a new SSH key:
+
+[source, bash]
+----
+ssh-keygen -t rsa
+----
+
+This will generate a private and public key combination in `~/.ssh` using RSA encryption. The `id_rsa` file is your private key, **never share it with anyone**. The `id_rsa.pub` is your public key which you are free to share.
+
+Run the following command to copy your public key to the VM:
+
+[source, bash]
+----
+ssh-copy-id username@remotehost <1>
+----
+<1> Replace `username` with the username you created when setting up the VM, and replace `remotehost` with the IP address from above.
+
+Set the correct file permissions on the `authorized_keys` file:
+
+[source, bash]
+----
+chmod 600 ~/.ssh/authorized_keys
+----
+
+You can now login to your VM from your local machine with SSH! Give it a go:
+
+[source, bash]
+----
+ssh username@remotehost
+----
+
+== Pre-requisites [[pre_requisites]]
+
+There are four pre-requisites to complete before we run a single command to go from 0 to a fully functioning, Flux-enabled Kubernetes cluster. If you followed the <<creating_a_vm>> section, 3/4 are already complete.
+
+. A GitHub personal access token, needed for Flux bootstrap. https://fluxcd.io/flux/installation/bootstrap/github/#github-organization[Instructions on how to create one here].
 . A server running Ubuntu server >= 24.04.
 . SSH public key authentication set up between the server and your local machine.
 . Ansible installed on your local machine:
@@ -94,7 +259,7 @@ all:
 [source,yaml]
 ----
 kubeseal_version: '0.27.1'
-kubeseal_arch: arm <1>
+kubeseal_arch: arm64 <1>
 ----
 <1> Update the architecture to match your server.
 
@@ -113,15 +278,51 @@ We're ready! Let's run the Ansible playbook:
 [source,bash]
 ----
 cd home-server-ansible-setup
-ansible-playbook -i inventory.yml playbook.yml -u <user> <1>
+
+ansible-playbook \
+  -i inventory.yml playbook.yml \
+  -u <username> \ <1>
+  -K <2>
 ----
-<1> In my case the user is `pi`, as that's the user I created when setting up my Raspberry Pi.
+<1> Set the `username` to the username you login as.
+<2> The `-K` flag tells Ansible that you will provide the `BECOME` password. This is the password of the user you login as.
 
 You will be prompted for your GitHub access token when running the command. Paste it and press `Enter`.
 
-A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see the system pods. Run `microk8s status` to get some cluster information.
+A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see the system pods:
 
-Flux will have created a repository in your GitHub account. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the server you can run `flux events` to see what Flux is up to.
+[source, bash]
+----
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+flux-system   helm-controller-7f788c795c-5qzh6           1/1     Running   0          7m40s
+flux-system   kustomize-controller-b4f45fff6-gvw6n       1/1     Running   0          7m40s
+flux-system   notification-controller-556b8867f8-wl4t5   1/1     Running   0          7m40s
+flux-system   source-controller-77d6cd56c9-57f6b         1/1     Running   0          7m40s
+kube-system   calico-kube-controllers-759cd8b574-z7ljw   1/1     Running   0          33m
+kube-system   calico-node-p6pbh                          1/1     Running   0          33m
+kube-system   coredns-7896dbf49-mgwcg                    1/1     Running   0          33m
+kube-system   hostpath-provisioner-5fbc49d86c-4sllx      1/1     Running   0          30m
+kube-system   metrics-server-d6f74bb9f-tg944             1/1     Running   0          30m
+----
+
+Run `microk8s status` to get some cluster information:
+
+[source, bash]
+----
+microk8s is running
+high-availability: no
+  datastore master nodes: 127.0.0.1:19001
+  datastore standby nodes: none
+----
+
+Flux will have https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial[created a repository in your GitHub account]. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the server you can run `flux events` to see what Flux is up to:
+
+[source, bash]
+----
+LAST SEEN               TYPE    REASON                  OBJECT                          MESSAGE           
+18s (x10 over 9m29s)    Normal  GitOperationSucceeded   GitRepository/flux-system       no changes since last reconcilation: observed revision 'main@sha1:67a799a1cfc7b68ed4c766af0294dab77befcab8'
+7s                      Normal  ReconciliationSucceeded Kustomization/flux-system       Reconciliation finished in 466.105421ms, next run in 10m0s
+----
 
 We've also installed some other goodies that will make interacting with and deploying apps to the cluster easier:
 
@@ -162,20 +363,5 @@ drwxrwxr-x 3  999 gpio 4096 Nov 21 11:56 pihole-pihole-pvc-3d1b2abd-d697-4797-ac
 
 == Next Steps
 
-We're now ready to start deploying apps to our cluster.
+Our cluster is now ready to work with. Stay tuned for the next post where we'll talk a bit about how and why we use Flux, and introduce some best practices around DevOps and GitOps.
 
-Stay tuned for the next post where we'll deploy Prometheus, Grafana and Loki, with custom alerts that will email us when our server CPU/memory/disk utilisation, and even temperature, is too high. We'll end up with something like:
-
-.Kubernetes cluster dashboard.
-image::/assets/images/posts/2024-11-21/cluster.png[Cluster dashboard]
-
-.Node dashboard.
-image::/assets/images/posts/2024-11-21/node.png[Node dashboard]
-
-.Loki.
-image::/assets/images/posts/2024-11-21/loki.png[Loki]
-
-.Custom alerts.
-image::/assets/images/posts/2024-11-21/alerts.png[Custom alerts]
-
-Now that's some great observability for your home server!
