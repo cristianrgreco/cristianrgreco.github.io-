@@ -34,32 +34,32 @@ brew install utm
 Launch UTM and you'll be presented with this window:
 
 .Click "Create a new Virtual Machine".
-image::/assets/images/posts/2024-11-22/1-create-new-vm.png[UTM app]
+image::/assets/images/posts/2024-11-21/1-create-new-vm.png[UTM app]
 
 .Click "Virtualize".
-image::/assets/images/posts/2024-11-22/2-virtualize.png[Create new VM dialog]
+image::/assets/images/posts/2024-11-21/2-virtualize.png[Create new VM dialog]
 
 .Click "Linux".
-image::/assets/images/posts/2024-11-22/3-linux.png[OS selection dialog]
+image::/assets/images/posts/2024-11-21/3-linux.png[OS selection dialog]
 
 .Click "Browse" and select the ISO image you downloaded earlier. Click "Continue".
-image::/assets/images/posts/2024-11-22/4-boot-iso-image.png[Image selection dialog]
+image::/assets/images/posts/2024-11-21/4-boot-iso-image.png[Image selection dialog]
 
 Fast forward the next few prompts, we're happy with the defaults for "Hardware", "Storage", and "Shared Directory". You'll now be presented with a "Summary" page:
 
 .Click "Save".
-image::/assets/images/posts/2024-11-22/5-summary.png[VM creation summary]
+image::/assets/images/posts/2024-11-21/5-summary.png[VM creation summary]
 
 .Click the "Play" button.
-image::/assets/images/posts/2024-11-22/6-vm-created.png[VM ready to start]
+image::/assets/images/posts/2024-11-21/6-vm-created.png[VM ready to start]
 
 .Press "Enter" to install Ubuntu Server.
-image::/assets/images/posts/2024-11-22/7-install-ubuntu.png[VM running Ubuntu installation media]
+image::/assets/images/posts/2024-11-21/7-install-ubuntu.png[VM running Ubuntu installation media]
 
 Proceed through the prompts: Select your language. You don't need to update the installer. Select your keyboard layout. Select "Ubuntu Server" as the base, there is no need to search for third-party drivers. The default network interface is fine as UTM creates a bridge network for the VM, meaning it'll use your host network. No proxy address is required. The default mirror address is fine. Select to use the entire disk.
 
 .Set the name, server name, username and password to whatever values you like. You'll need to remember the username and password as you'll need them to login later.
-image::/assets/images/posts/2024-11-22/8-user-creation.png[User account creation]
+image::/assets/images/posts/2024-11-21/8-user-creation.png[User account creation]
 
 Proceed through the prompts: Don't enable Ubuntu Pro. Don't install OpenSSH server (we'll install it later). Don't install any Snap packages. Click "Reboot now".
 
@@ -69,13 +69,13 @@ The VM may not reboot as expected as the ISO is still mounted (the VM thinks a U
 ====
 
 .In the UTM app, clear the CD/DVD drive.
-image::/assets/images/posts/2024-11-22/9-eject-disk.png[Remove VM installation media]
+image::/assets/images/posts/2024-11-21/9-eject-disk.png[Remove VM installation media]
 
 .Restart the VM. You can click the "Play" button in the VM menu bar.
-image::/assets/images/posts/2024-11-22/10-restart-vm.png[UTM VM console GUI]
+image::/assets/images/posts/2024-11-21/10-restart-vm.png[UTM VM console GUI]
 
 .You should now be presented with a login prompt. Enter the username and password you set earlier.
-image::/assets/images/posts/2024-11-22/11-vm-login.png[Ubuntu login prompt]
+image::/assets/images/posts/2024-11-21/11-vm-login.png[Ubuntu login prompt]
 
 === Configure SSH
 
