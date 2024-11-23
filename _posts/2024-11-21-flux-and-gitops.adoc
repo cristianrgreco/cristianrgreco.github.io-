@@ -135,7 +135,7 @@ spec:
 Let's see how this new process has solved the problems above:
 
 . What state is the cluster in?
-.. Look at the latest commit in the Git repository.
+.. Explore the `main` branch of your Git repository.
 . How to get back to a given state?
 .. `git revert`.
 . Security?
