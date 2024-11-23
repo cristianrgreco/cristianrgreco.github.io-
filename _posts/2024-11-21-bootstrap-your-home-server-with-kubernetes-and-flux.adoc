@@ -289,7 +289,7 @@ ansible-playbook \
 
 You will be prompted for your GitHub access token when running the command. Paste it and press `Enter`.
 
-A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see the system pods:
+A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see all the pods:
 
 [source, bash]
 ----
@@ -315,7 +315,9 @@ high-availability: no
   datastore standby nodes: none
 ----
 
-Flux will have https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial[created a repository in your GitHub account]. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. On the server you can run `flux events` to see what Flux is up to:
+Flux will have https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial[created a repository in your GitHub account]. Clone it down and have a look around. Soon we will use it for deploying apps and cluster configuration. 
+
+On the server you can run `flux events` to see what Flux is up to:
 
 [source, bash]
 ----
