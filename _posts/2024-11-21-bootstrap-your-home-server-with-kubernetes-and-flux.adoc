@@ -285,7 +285,7 @@ ansible-playbook \
   -K <2>
 ----
 <1> Set the `username` to the username you login as.
-<2> The `-K` flag tells Ansible that you will provide the `BECOME` password. This is the password of the user you login as.
+<2> The `-K` flag tells Ansible that you will provide the `BECOME` password. This is the password of the user you login as. This is needed because Ansible will need to use `sudo` to install and configure some packages.
 
 You will be prompted for your GitHub access token when running the command. Paste it and press `Enter`.
 
