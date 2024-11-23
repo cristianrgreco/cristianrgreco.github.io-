@@ -120,7 +120,7 @@ ip address show <1>
 
 You should see output like:
 
-[source, bash]
+[source]
 ----
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -291,7 +291,7 @@ You will be prompted for your GitHub access token when running the command. Past
 
 A couple of minutes later and, that's it! You now have a functioning Kubernetes cluster. SSH onto your box and have a look around. Run `kubectl get pods -A` to see all the pods:
 
-[source, bash]
+[source]
 ----
 NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
 flux-system   helm-controller-7f788c795c-5qzh6           1/1     Running   0          7m40s
@@ -307,7 +307,7 @@ kube-system   metrics-server-d6f74bb9f-tg944             1/1     Running   0    
 
 Run `microk8s status` to get some cluster information:
 
-[source, bash]
+[source]
 ----
 microk8s is running
 high-availability: no
@@ -319,7 +319,7 @@ Flux will have created a repository in your GitHub account. Clone it down and ha
 
 On the server you can run `flux events` to see what Flux is up to:
 
-[source, bash]
+[source]
 ----
 LAST SEEN               TYPE    REASON                  OBJECT                          MESSAGE           
 18s (x10 over 9m29s)    Normal  GitOperationSucceeded   GitRepository/flux-system       no changes since last reconcilation: observed revision 'main@sha1:67a799a1cfc7b68ed4c766af0294dab77befcab8'
