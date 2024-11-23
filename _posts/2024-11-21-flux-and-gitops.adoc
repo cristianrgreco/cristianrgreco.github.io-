@@ -139,7 +139,7 @@ Let's see how this new process has solved the problems above:
 . How to get back to a given state?
 .. `git revert`.
 . Security?
-.. We've closed the cluster off from the outside world. Flux runs __within__ the cluster, with read-only egress to the Git repository.
+.. We've closed the cluster off from the outside world. Flux runs __within__ the cluster, with read-only egress to the Git repository. Developers and service accounts no longer need access.
 . Reproducibility?
 .. The entire cluster state is in code in Git. You can install Flux on any other cluster and have it bootstrap from the Git repository to get back to the exact same state.
 
