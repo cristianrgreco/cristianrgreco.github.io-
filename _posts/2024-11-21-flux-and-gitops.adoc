@@ -1,5 +1,5 @@
 = Flux and GitOps: What, Why and How
-:page-excerpt: Flux and GitOps simplify Kubernetes management by defining your cluster’s desired state in Git, ensuring consistency, security, and easy rollbacks.
+:page-excerpt: Simplify Kubernetes with Flux and GitOps: define, secure, and automate your cluster’s state using Git.
 :page-tags: [kubernetes, flux, gitops]
 :page-published: true
 

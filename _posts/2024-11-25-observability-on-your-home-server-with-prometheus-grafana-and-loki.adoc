@@ -1,0 +1,16 @@
+= Secrets Management on your Home Server with Sealed Secrets
+:page-excerpt: TODO
+:page-tags: [observability, prometheus, grafana, loki, flux, kubernetes, gitops]
+:page-published: false
+
+.Kubernetes cluster dashboard.
+image::/assets/images/posts/2024-11-25/cluster.png[Cluster dashboard]
+
+.Node dashboard.
+image::/assets/images/posts/2024-11-25/node.png[Node dashboard]
+
+.Loki.
+image::/assets/images/posts/2024-11-25/loki.png[Loki]
+
+.Custom alerts.
+image::/assetn/images/posts/2024-11-25/alerts.png[Custom alerts]
