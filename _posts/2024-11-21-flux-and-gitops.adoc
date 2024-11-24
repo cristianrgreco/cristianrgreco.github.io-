@@ -147,4 +147,4 @@ There are other benefits as well, like developers not needing to learn new tools
 
 == Next Steps
 
-In the next post we're going to install some components we need before we can start deploying apps to the cluster.
+In the link:/2024/11/24/secret-management-on-your-home-server-with-flux-and-sealed-secrets.html[next post] we're going to solve the problem of secrets management in our cluster.

@@ -365,5 +365,5 @@ drwxrwxr-x 3  999 gpio 4096 Nov 21 11:56 pihole-pihole-pvc-3d1b2abd-d697-4797-ac
 
 == Next Steps
 
-Our cluster is now ready to work with. Stay tuned for the next post where we'll talk a bit about why and how we use Flux, and introduce some best practices around DevOps and GitOps.
+Our cluster is now ready to work with. In the link:/2024/11/21/flux-and-gitops.html[next post] we'll talk about why and how we use Flux, and introduce some best practices around DevOps and GitOps.
 
