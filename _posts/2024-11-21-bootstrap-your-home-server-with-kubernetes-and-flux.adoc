@@ -173,7 +173,7 @@ ssh username@remotehost
 
 == Pre-requisites [[pre_requisites]]
 
-There are four pre-requisites to complete before we run a single command to go from zero to a fully functioning, Flux-enabled Kubernetes cluster. If you followed the <<creating_a_vm>> section, half are already complete.
+There are four pre-requisites to complete before we run a single command to go from zero to a fully functioning, Flux-enabled Kubernetes cluster. If you followed the <<creating_a_vm>> section, 3/4 are already complete.
 
 . A GitHub personal access token, needed for Flux bootstrap. https://fluxcd.io/flux/installation/bootstrap/github/#github-organization[Instructions on how to create one here].
 . A server running Ubuntu server >= 24.04.
