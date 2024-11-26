@@ -19,7 +19,7 @@ image::/assets/images/posts/2024-11-26/alerts.png[Custom alerts]
 
 == Create Admin User Credentials
 
-We already created a sealed secret in the previous post, so let's just get right into it:
+We already created a sealed secret in the link:/2024/11/24/secret-management-on-your-home-server-with-flux-and-sealed-secrets.html[previous post], so let's just get right into it:
 
 [,bash]
 ----
