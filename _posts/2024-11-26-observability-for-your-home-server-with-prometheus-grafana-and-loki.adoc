@@ -38,6 +38,11 @@ rm grafana-adminuser-creds.yaml
 
 == Create the Flux Manifests
 
+[NOTE]
+====
+The source code is available https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial[on GitHub].
+====
+
 Our Flux project currently looks like this:
 [source]
 ----
