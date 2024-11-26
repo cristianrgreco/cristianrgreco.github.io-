@@ -408,27 +408,27 @@ kubectl port-forward service/kube-prometheus-stack-grafana -n observability \
 ----
 <1> Grafana exposes the UI on port `80`. Let's map port `80` in the pod to port `8080` on the host.
 
-// [plantuml, format=svg]
-// ----
-// skinparam ComponentStyle rectangle
-// skinparam ComponentFontStyle normal
-// skinparam ComponentBorderThickness 1
-//
-// Component Local #white
-// Component Server #f6f6f6 {
-//   Component Kubernetes #e6e6e6 {
-//     Component GrafanaPod as "Grafana Pod" #d6d6d6
-//     Component GrafanaService as "Grafana Service" #d6d6d6 {
-//       portout 80 #ffffff
-//     }
-//   }
-//   portout 8080 #ffffff
-// }
-//
-// Local --> 8080
-// 8080 --> 80
-// GrafanaService --> GrafanaPod
-// ----
+[plantuml, format=svg]
+----
+skinparam ComponentStyle rectangle
+skinparam ComponentFontStyle normal
+skinparam ComponentBorderThickness 1
+
+Component Local #white
+Component Server #f6f6f6 {
+  Component Kubernetes #e6e6e6 {
+    Component GrafanaPod as "Grafana Pod" #d6d6d6
+    Component GrafanaService as "Grafana Service" #d6d6d6 {
+      portout 80 #ffffff
+    }
+  }
+  portout 8080 #ffffff
+}
+
+Local --> 8080
+8080 --> 80
+GrafanaService --> GrafanaPod
+----
 
 Open the following URL in your browser: http://<server-IP>:8080 and you'll be greeted with Grafana's login page:
 
