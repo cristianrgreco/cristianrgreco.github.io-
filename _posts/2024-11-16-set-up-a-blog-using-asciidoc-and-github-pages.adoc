@@ -143,4 +143,20 @@ asciidoctor:
 <1> Asciidoctor output will be automatically cleaned up by Jekyll, so we need to https://github.com/asciidoctor/jekyll-asciidoc?tab=readme-ov-file#preserving-generated-images[tell Jekyll to preserve them].
 <2> Specify a directory from which to serve the images.
 
+Some types of diagram such as https://plantuml.com/component-diagram[Component diagrams] require https://graphviz.org/[Graphviz] to be installed:
+
+.Linux
+[source, bash]
+----
+sudo apt install graphviz
+----
+
+.MacOS
+[source, bash]
+----
+brew install graphviz
+----
+
+If running from a GitHub actions pipeline, ensure the environment variable `GRAPHVIZ_DOT` is set to `/usr/bin/dot`.
+
 Restart the Jekyll server and you'll now see the PlantUML diagram rendered in the post.
