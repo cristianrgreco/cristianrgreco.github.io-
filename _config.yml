@@ -57,7 +57,6 @@ defaults:
       # header:
       #   image: /assets/images/header.png
 
-
 description: Follow my journey as a software developer, sharing insights, lessons, and discoveries from coding to career growth.
 
 # See https://mmistakes.github.io/minimal-mistakes/docs/configuration/#code-block-copy-button
