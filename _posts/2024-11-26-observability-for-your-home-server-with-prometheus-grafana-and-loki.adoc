@@ -134,7 +134,7 @@ spec:
 ----
 <1> For reference, these YAML files contain all the values we can override.
 <2> We disable monitoring components which do not exist in MicroK8s.
-<3> Prometheus will build up a data store over time, which is useful for example to query a week's worth of data. However without persistence, if the pod were to restart (for example when we update `kube-prometheus-stack`), the data would be lost and Prometheus would need to start again. Let's avoid that.
+<3> Prometheus will build up a data store over time, which is useful for example to query a week's worth of data. However without persistence, if the pod were to restart (for example when we update `kube-prometheus-stack`), the data would be lost and Prometheus would need to start again.
 <4> The `kube-prometheus-stack` has a feature where it searches for resources in the cluster matching certain labels. We will leverage this soon to create Grafana dashboards and alerts.
 
 .`loki-stack.yaml`
@@ -317,10 +317,13 @@ The resultant structure should look like this:
 
 Git commit, push, and voila! Within a few minutes the observability stack will be deployed:
 
+[,bash]
+----
+flux get all -n observability
+----
+
 [source]
 ----
-$ flux get all -n observability
-
 NAME                                            REVISION        SUSPENDED       READY   MESSAGE
 helmrepository/grafana-charts                   sha256:2b983de9 False           True    stored artifact: revision 'sha256:2b983de9'
 helmrepository/prometheus-community-charts      sha256:79c45301 False           True    stored artifact: revision 'sha256:79c45301'
@@ -338,10 +341,13 @@ helmrelease/promtail                    6.16.6          False           True    
 
 If we take a look at what's inside Kubernetes, you'll see there's a lot going on!
 
+[,bash]
+----
+kubectl get all -n observability
+----
+
 [source]
 ----
-$ kubectl get all -n observability
-
 NAME                                                            READY   STATUS    RESTARTS   AGE
 pod/alertmanager-kube-prometheus-stack-alertmanager-0           2/2     Running   0          4m16s
 pod/kube-prometheus-stack-grafana-56d5b9c8d4-k4cp2              4/4     Running   0          4m17s
@@ -406,7 +412,7 @@ Open the following URL in your browser: http://<server-IP>:8080 and you'll be gr
 
 image::/assets/images/posts/2024-11-26/grafana-login.png[Grafana Login page]
 
-If you've forgotten your Grafana admin user credentials, you can get them from within the cluster:
+If you've forgotten your Grafana admin user credentials (no judgement here), you can get them from within the cluster:
 
 [,bash]
 ----
@@ -423,7 +429,7 @@ image::/assets/images/posts/2024-11-26/grafana-home.png[Grafana Home page]
 
 [TIP]
 ====
-Explore Grafana. This is the beauty of what we've done. By defining our cluster state as code, if you mess up and do something you don't like, you can blow it all away and start again.
+Take this time to explore Grafana. This is the beauty of what we've done: by defining our cluster state as code, if you mess up and do something you don't like, you can blow it all away and start again.
 ====
 
 The observability stack comes with a bunch of pre-built dashboards:
