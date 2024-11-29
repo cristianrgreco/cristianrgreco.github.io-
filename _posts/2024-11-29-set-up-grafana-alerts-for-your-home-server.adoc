@@ -188,10 +188,10 @@ We won't go into the YAML line by line because it's quite long. The file was gen
 
 This is what the alerts look like when they're imported into Grafana:
 
-image::/assets/images/posts/2024-11-29/grafana-alert-temp.png[width=75%,alt=Grafana high temperature alert]
-image::/assets/images/posts/2024-11-29/grafana-alert-cpu.png[width=75%,alt=Grafana high CPU usage alert]
-image::/assets/images/posts/2024-11-29/grafana-alert-memory.png[width=75%,alt=Grafana high memory usage alert]
-image::/assets/images/posts/2024-11-29/grafana-alert-disk.png[width=75%,alt=Grafana high disk usage alert]
+image::/assets/images/posts/2024-11-29/grafana-alert-temp.png[Grafana high temperature alert]
+image::/assets/images/posts/2024-11-29/grafana-alert-cpu.png[Grafana high CPU usage alert]
+image::/assets/images/posts/2024-11-29/grafana-alert-memory.png[Grafana high memory usage alert]
+image::/assets/images/posts/2024-11-29/grafana-alert-disk.png[Grafana high disk usage alert]
 
 Add the following to the `kustomization.yaml`:
 
