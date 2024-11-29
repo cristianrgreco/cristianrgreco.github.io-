@@ -1,4 +1,4 @@
-= Set Up a Blog Using AsciiDoc and GitHub Pages
+= Set up a Blog using AsciiDoc and GitHub Pages
 :page-excerpt: Set up a blog with AsciiDoc and GitHub Pages, featuring dynamic content and diagrams.
 :page-tags: [asciidoc, plantuml]
 

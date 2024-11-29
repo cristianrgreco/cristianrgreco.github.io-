@@ -1,4 +1,4 @@
-= Bootstrap Your Home Server with Kubernetes and Flux
+= Bootstrap your Home Server with Kubernetes and Flux
 :page-excerpt: Install and configure Kubernetes on your home server using MicroK8s and Ansible, and set up Flux to manage app deployments and cluster configurations.
 :page-tags: [kubernetes, ansible, flux, gitops]
 

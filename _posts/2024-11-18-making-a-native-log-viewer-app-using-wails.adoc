@@ -1,4 +1,4 @@
-=	Making a Native Log Viewer App Using Wails
+= Making a Native Log Viewer App using Wails
 :page-excerpt: A fast, intuitive log viewer built with Wails. Features include code cleanup, filters, split-screen, and lightning-fast processing.
 :page-tags: [wails, react, go]
 

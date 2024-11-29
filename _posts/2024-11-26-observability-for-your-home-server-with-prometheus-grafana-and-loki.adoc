@@ -1,4 +1,4 @@
-= Observability for Your Home Sever with Prometheus, Grafana and Loki
+= Observability for your Home Sever with Prometheus, Grafana and Loki
 :page-excerpt: Set up a robust observability stack for your home server with Prometheus, Grafana, and Loki. Learn how to monitor and maintain your server seamlessly.
 :page-tags: [observability, prometheus, grafana, loki, flux, kubernetes, gitops]
 :page-published: true
@@ -62,7 +62,7 @@ Our Flux project currently looks like this:
 6 directories, 6 files
 ----
 
-Let's create a new directory, `/infrastructure/observability` and move `grafana-adminuser-creds-sealed.yaml` there. 
+Let's create a new directory, `/infrastructure/observability` and copy `grafana-adminuser-creds-sealed.yaml` there.
 
 Create the following files also in the `/infrastructure/observability` directory:
 

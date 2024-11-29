@@ -1,4 +1,4 @@
-=	Set Up a Cheap Web and Email Domain for the Apple Developer Program
+= Set up a Cheap Web and Email Domain for the Apple Developer Program
 :page-excerpt: Set up a web and email domain for the Apple Developer Program using Cloudflare, with no need for email hosting.
 :page-tags: [cloudflare]
 
