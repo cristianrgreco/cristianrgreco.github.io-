@@ -1,5 +1,5 @@
 = Set up Grafana Alerts for your Home Server
-:page-excerpt: TODO
+:page-excerpt: Set up Grafana alerts to receive email notifications when your home server’s metrics exceed safe levels.
 :page-tags: [alerts, observability, prometheus, grafana, flux, kubernetes, gitops]
 :page-published: true
 
