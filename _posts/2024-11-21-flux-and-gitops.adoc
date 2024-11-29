@@ -69,12 +69,18 @@ This is what the same process above would look like using Flux and GitOps:
 [plantuml, format=svg]
 ----
 autoactivate on
+
 Actor Developer
-Participant "Git Repository" as Git
+Participant "App\nGit Repository" as Git
 Participant "CI/CD Pipeline" as Pipeline
 Participant "Container Registry" as Registry
 Participant "Cluster State\nGit Repository" as CGit
 Participant "Kubernetes Cluster" as Cluster
+
+Developer -> CGit: Push code defining what should be in the cluster
+return Pushed
+
+...Time to release...
 
 Developer -> Git: Push code
 return Pushed
@@ -84,12 +90,6 @@ Pipeline -> Registry: Test, build and push image
 return Image pushed
 return Build successful
 
-...Optional approval process...
-
-Developer -> CGit: Push code
-note left of CGit: This step is optional
-return Pushed
-
 activate Cluster
 Cluster -> CGit: Poll for changes
 return Difference detected in\ncurrent state and desired state
@@ -98,7 +98,7 @@ Cluster -> Cluster: Reconcile changes
 return Changed reconciled
 ----
 
-The diagram above says that the step where the developer pushes code for the second time is optional. Indeed, depending on how you set up Flux, a deployment could be as easy as pushing a new image. For example, let's say the following Flux resources have been created:
+What does "Push code defining what should be in the cluster" look like in practice? Well, we could for example apply the following manifests:
 
 [source,yaml]
 ----
