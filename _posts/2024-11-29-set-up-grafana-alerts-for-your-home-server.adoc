@@ -177,7 +177,7 @@ resources:
 
 == Create Alerts
 
-Download https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial/blob/main/infrastructure/observability/grafana-custom-alert-rules.yaml[this YAML file] as `grafana-custom-alert-rules.yaml`, and move it to the `infrastructure/observability` directory.
+Download https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial/blob/2826b18555d3abe84914b01cd8b5d6023fedf118/infrastructure/observability/grafana-custom-alert-rules.yaml[this YAML file] as `grafana-custom-alert-rules.yaml`, and move it to the `infrastructure/observability` directory.
 
 [NOTE]
 ====
