@@ -80,7 +80,7 @@ Participant "Kubernetes Cluster" as Cluster
 Developer -> CGit: Push code defining what should be in the cluster
 return Pushed
 
-...Time to release...
+...Optional approval process...
 
 Developer -> Git: Push code
 return Pushed
