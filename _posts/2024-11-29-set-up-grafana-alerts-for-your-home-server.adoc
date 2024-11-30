@@ -282,3 +282,17 @@ image::/assets/images/posts/2024-11-29/grafana-new-alert.png[Grafana new alert]
 image::/assets/images/posts/2024-11-29/grafana-alert-export.png[Grafana alert export]
 
 Once you have the YAML, add it to your `grafana-custom-alert-rules.yaml`, and commit and push.
+
+== Deleting Alerts
+
+Removing an alert from the `grafana-custom-alert-rules.yaml` file will not delete the alert from Grafana. Instead you'll need to define a list of `deleteRules`, and apply them in the same was we applied `grafana-custom-alert-rules.yaml`. For example, to delete the high temperature alert we previously created:
+
+[,yaml]
+----
+apiVersion: 1
+deleteRules:
+  - orgId: 1
+    uid: fdv0br168nvnkc
+----
+
+Add the new YAML file to the `kustomization.yaml` like we do https://github.com/cristianrgreco/bootstrap-home-server-flux-tutorial/commit/0263ea669fd58573353898fb0cc8c3901703a389#diff-56fa9fc86a683f8c0ed2c20189922c395e94ad910e4f8208a2d4e232103730c7[in this commit].
