@@ -119,3 +119,5 @@ image::/assets/images/posts/2024-11-18/split-screen.png[Two files open in split 
 
 .Paste logs, browse and open, or drag and drop as many files as you like. The Go backend is super fast and can process 10,000s lines in microseconds.
 image::/assets/images/posts/2024-11-18/initial.png[Initial page of the app]
+
+You can download it now on the https://apps.apple.com/gb/app/log-reader/id6738748053?mt=12[App Store].
